@@ -1,5 +1,9 @@
 // API Service - Frontend to Backend Communication
-const API_BASE_URL = 'http://localhost:4000/api';
+// In production, uses relative path (same domain)
+// In development, uses localhost:4000
+const API_BASE_URL = window.location.origin === 'http://localhost:3001' || window.location.origin === 'http://localhost:5173'
+  ? 'http://localhost:4000/api'
+  : `${window.location.origin}/api`;
 
 // Helper function to make API calls with error handling
 const apiCall = async (endpoint, options = {}) => {

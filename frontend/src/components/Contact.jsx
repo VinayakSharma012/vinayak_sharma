@@ -114,13 +114,7 @@ export default function Contact() {
               ))}
             </div>
 
-            <motion.button
-              whileHover={{ scale: 1.05, boxShadow: '0 8px 25px rgba(121, 227, 255, 0.3)' }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 bg-primary text-on-surface font-bold uppercase tracking-wider rounded-lg shadow-lg hover:bg-primary/90 transition-all duration-300"
-            >
-              Download Resume
-            </motion.button>
+
           </motion.div>
 
           {/* Contact Form */}

@@ -1,9 +1,5 @@
 // API Service - Frontend to Backend Communication
-// On Netlify, uses /.netlify/functions/api
-// In development, uses localhost:4000
-const API_BASE_URL = import.meta.env.MODE === 'production' 
-  ? '/.netlify/functions/api' 
-  : 'http://localhost:4000/api';
+const API_BASE_URL = 'http://localhost:4000/api';
 
 // Helper function to make API calls with error handling
 const apiCall = async (endpoint, options = {}) => {

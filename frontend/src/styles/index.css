@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-surface text-on-surface font-body;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-headline font-bold;
+  }
+
+  /* Typography Presets */
+  .display-lg {
+    @apply text-display-lg font-headline font-black tracking-tighter;
+  }
+
+  .title-lg {
+    @apply text-title-lg font-headline font-bold tracking-tight;
+  }
+
+  .label-sm {
+    @apply text-label-sm uppercase tracking-widest;
+  }
+
+  .label-md {
+    @apply text-label-md uppercase tracking-widest;
+  }
+
+  .metadata {
+    @apply font-code text-xs uppercase tracking-wider;
+  }
+}
+
+@layer components {
+  /* Button System - "The Actuators" */
+  .btn-primary {
+    @apply px-6 py-3 bg-primary text-on-primary font-bold uppercase tracking-widest text-sm rounded-sm transition-all duration-300 hover:shadow-primary-glow-lg hover:scale-105 active:scale-95;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 border-2 border-primary bg-transparent text-primary font-bold uppercase tracking-widest text-sm rounded-sm transition-all duration-300 hover:bg-primary/10 hover:shadow-primary-glow active:scale-95;
+  }
+
+  .btn-tertiary {
+    @apply font-code text-primary font-bold uppercase tracking-wider text-xs relative inline-block;
+  }
+
+  .btn-tertiary::after {
+    content: '';
+    @apply absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 w-0 bg-primary transition-all duration-300;
+  }
+
+  .btn-tertiary:hover::after {
+    @apply w-full;
+  }
+
+  /* Card System - "Data Shards" */
+  .card-shard {
+    @apply bg-surface-container rounded-lg p-6 transition-all duration-300 hover:bg-surface-container-highest hover:shadow-primary-glow;
+  }
+
+  .card-floating {
+    @apply bg-surface-container-highest backdrop-blur-glass rounded-lg p-6 border border-primary/20 transition-all duration-300 hover:border-primary/50 hover:shadow-neon-hum;
+  }
+
+  /* Section Headers */
+  .section-title {
+    @apply display-lg text-on-surface relative pb-8;
+  }
+
+  .section-divider {
+    @apply h-0.5 w-20 bg-gradient-to-r from-primary to-primary/30 mt-4;
+  }
+
+  /* Glassmorphism */
+  .glass-panel {
+    @apply bg-surface-variant/40 backdrop-blur-glass border border-primary/10 rounded-lg p-6 transition-all duration-300;
+  }
+
+  .glass-panel:hover {
+    @apply border-primary/30 shadow-primary-glow;
+  }
+
+  /* Timeline Elements */
+  .timeline-node {
+    @apply w-4 h-4 border-2 border-tertiary rounded-full animate-pulse-neon;
+  }
+
+  .timeline-dashed {
+    @apply border-l-2 border-dashed border-outline-variant/30;
+  }
+
+  /* Progress Bar - "System Load" */
+  .progress-track {
+    @apply h-4 bg-surface-container-highest rounded-sm overflow-hidden relative;
+  }
+
+  .progress-fill {
+    @apply h-full bg-gradient-to-r from-primary to-secondary rounded-sm transition-all duration-500 relative;
+  }
+
+  .progress-fill::after {
+    content: '';
+    @apply absolute right-0 top-1/2 -translate-y-1/2 w-1 h-full bg-primary shadow-primary-glow blur-sm;
+  }
+
+  /* No-Line Rule: Use Tonal Shifts Only */
+  .surface-transition {
+    @apply bg-surface-container-low;
+  }
+
+  /* Ghost Border (Accessibility Fallback) */
+  .ghost-border {
+    @apply border border-outline-variant/15 rounded-lg;
+  }
+
+  /* Neon Accent Underline */
+  .accent-line {
+    @apply relative inline-block;
+  }
+
+  .accent-line::after {
+    content: '';
+    @apply absolute bottom-0 left-0 h-0.5 w-full bg-gradient-to-r from-primary via-primary/50 to-transparent;
+  }
+}
+
+/* Custom Scrollbar - Neon Archive Style */
+::-webkit-scrollbar {
+  @apply w-2.5;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-surface;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-surface-container-highest rounded hover:bg-primary/50 transition-colors;
+}
+
+/* Selection Styles - Electric Highlight */
+::selection {
+  @apply bg-primary text-on-primary;
+}
+
+/* Smooth Transitions */
+* {
+  @apply transition-colors duration-300;
+}
+
+/* Asymmetric Layout Support */
+.asymmetric-left {
+  @apply ml-0;
+}
+
+.asymmetric-right {
+  @apply mr-0 ml-auto;
+}
+
+/* Metadata Typography Helper */
+.meta-info {
+  @apply font-code text-xs uppercase tracking-wider text-outline-variant;
+}

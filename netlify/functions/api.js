@@ -53,10 +53,12 @@ export default async (req, context) => {
 
   const url = new URL(req.url);
   const pathname = url.pathname;
+  
+  console.log('🔍 API Request:', req.method, pathname);
 
   try {
-    // POST /api/contact - submit message
-    if (pathname.endsWith('/api/contact') && req.method === 'POST') {
+    // POST /contact - submit message (remove /api from path since this is inside functions/api.js)
+    if (pathname.endsWith('/contact') && req.method === 'POST') {
       const body = await req.json();
       const { name, email, subject, message } = body;
 
@@ -97,8 +99,8 @@ export default async (req, context) => {
       );
     }
 
-    // GET /api/contact/admin/messages - get all messages
-    if (pathname.endsWith('/api/contact/admin/messages') && req.method === 'GET') {
+    // GET admin messages
+    if (pathname.includes('contact/admin/messages') && req.method === 'GET' && !pathname.includes('/read')) {
       const messages = readMessages();
       return new Response(
         JSON.stringify({
@@ -110,9 +112,10 @@ export default async (req, context) => {
       );
     }
 
-    // PATCH /api/contact/admin/messages/:id/read - mark as read
-    if (pathname.includes('/api/contact/admin/messages/') && pathname.includes('/read') && req.method === 'PATCH') {
-      const id = pathname.split('/')[5];
+    // PATCH mark as read
+    if (pathname.includes('contact/admin/messages/') && pathname.includes('/read') && req.method === 'PATCH') {
+      const parts = pathname.split('/');
+      const id = parts[parts.length - 2];
       const messageId = parseInt(id);
       const messages = readMessages();
       const message = messages.find(m => m.id === messageId);
@@ -137,9 +140,10 @@ export default async (req, context) => {
       );
     }
 
-    // DELETE /api/contact/admin/messages/:id - delete message
-    if (pathname.includes('/api/contact/admin/messages/') && req.method === 'DELETE' && !pathname.includes('/read')) {
-      const id = pathname.split('/')[5];
+    // DELETE message
+    if (pathname.includes('contact/admin/messages/') && req.method === 'DELETE' && !pathname.includes('/read')) {
+      const parts = pathname.split('/');
+      const id = parts[parts.length - 1];
       const messageId = parseInt(id);
       let messages = readMessages();
       const initialLength = messages.length;
@@ -160,8 +164,8 @@ export default async (req, context) => {
       );
     }
 
-    // GET /api/health - health check
-    if (pathname.endsWith('/api/health') && req.method === 'GET') {
+    // GET health check
+    if (pathname.endsWith('/health') && req.method === 'GET') {
       return new Response(
         JSON.stringify({ status: 'ok' }),
         { status: 200, headers }
@@ -169,6 +173,7 @@ export default async (req, context) => {
     }
 
     // 404
+    console.log('❌ 404 - Path not found:', pathname);
     return new Response(
       JSON.stringify({ success: false, message: 'Not found' }),
       { status: 404, headers }

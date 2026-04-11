@@ -27,25 +27,9 @@ export default function Contact() {
     setLoading(true)
     setMessage('')
 
-    try {
-      console.log('📤 Sending contact form:', formData)
-      const response = await portfolioAPI.submitContact(formData)
-      console.log('✅ Response received:', response)
-      
-      if (response.success) {
-        setMessage({ type: 'success', text: '✅ Thank you! Your message has been received. I will get back to you soon.' })
-        setFormData({ name: '', email: '', subject: '', message: '' })
-        // Auto-clear success message after 5 seconds
-        setTimeout(() => setMessage(''), 5000)
-      } else {
-        setMessage({ type: 'error', text: response.message || 'Failed to send message. Please try again.' })
-      }
-    } catch (error) {
-      console.error('❌ Contact form error:', error)
-      setMessage({ type: 'error', text: 'Failed to send message. Please check your connection and try again.' })
-    } finally {
-      setLoading(false)
-    }
+    // Contact form disabled - use email directly
+    setMessage({ type: 'error', text: '📧 Contact form is currently disabled. Please reach out via email: 205125113@nitt.edu' })
+    setLoading(false)
   }
 
   return (

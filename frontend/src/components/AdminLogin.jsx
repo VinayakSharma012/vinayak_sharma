@@ -9,9 +9,9 @@ export default function AdminLogin({ onLogin }) {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
-  // Admin credentials
-  const ADMIN_USERNAME = 'admin'
-  const ADMIN_PASSWORD = 'vinayak@2026'
+  // Admin credentials from environment variables
+  const ADMIN_USERNAME = import.meta.env.VITE_ADMIN_USERNAME || 'admin'
+  const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD || 'password'
 
   const handleLogin = (e) => {
     e.preventDefault()

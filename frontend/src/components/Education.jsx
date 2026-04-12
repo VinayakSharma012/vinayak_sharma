@@ -118,42 +118,6 @@ export default function Education() {
             ))}
           </div>
         </motion.div>
-
-        {/* Certifications */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="mt-12"
-        >
-          <h3 className="text-2xl font-bold text-primary mb-6 font-headline">Certifications & Courses</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {[
-              'React - The Complete Guide (Udemy)',
-              'The Web Developer Bootcamp (Udemy)',
-              'Data Structures & Algorithms (Udemy)',
-              'Responsive Web Design (FreeCodeCamp)',
-              'Node.js & Express.js (Udemy)',
-              'MongoDB for Beginners (MongoDB)',
-            ].map((cert, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: i * 0.05 }}
-                viewport={{ once: true }}
-                whileHover={{ scale: 1.06, y: -6, boxShadow: '0 16px 40px rgba(121, 227, 255, 0.2)' }}
-                className="bg-surface-container p-5 rounded-xl border-2 border-primary/20 hover:border-primary/60 transition-all duration-300 cursor-pointer group relative overflow-hidden hover:shadow-lg hover:shadow-primary-glow/30"
-              >
-                <div className="absolute top-0 right-0 w-20 h-20 bg-primary/5 rounded-full -mr-10 -mt-10 group-hover:scale-125 transition-transform duration-300"></div>
-                <p className="text-on-surface font-bold text-sm group-hover:text-primary transition-colors duration-300 relative z-10">
-                  ✓ {cert}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
       </div>
     </section>
   )

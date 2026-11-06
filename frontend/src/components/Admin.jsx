@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import { FaTrash, FaCheckCircle, FaClock, FaSignOutAlt } from 'react-icons/fa'
+import { adminAPI } from '../services/api'
 
 export default function Admin({ onLogout }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -24,11 +25,7 @@ export default function Admin({ onLogout }) {
   const fetchMessages = async () => {
     try {
       setLoading(true)
-      const response = await fetch('http://localhost:4000/api/contact/admin/messages', {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' }
-      })
-      const data = await response.json()
+      const data = await adminAPI.getMessages()
       if (data.success) {
         setMessages(data.messages || [])
       }
@@ -42,11 +39,7 @@ export default function Admin({ onLogout }) {
   const markAsRead = async (id) => {
     try {
       console.log(`📌 Marking message ${id} as read...`)
-      const response = await fetch(`http://localhost:4000/api/contact/admin/messages/${id}/read`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' }
-      })
-      const data = await response.json()
+      const data = await adminAPI.markMessageAsRead(id)
       if (data.success) {
         await fetchMessages()
       }
@@ -58,11 +51,7 @@ export default function Admin({ onLogout }) {
   const deleteMessage = async (id) => {
     try {
       console.log(`🗑️ Deleting message ${id}...`)
-      const response = await fetch(`http://localhost:4000/api/contact/admin/messages/${id}`, {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' }
-      })
-      const data = await response.json()
+      const data = await adminAPI.deleteMessage(id)
       if (data.success) {
         await fetchMessages()
         setSelectedMessage(null)

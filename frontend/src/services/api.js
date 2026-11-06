@@ -1,9 +1,8 @@
 // API Service - Frontend to Backend Communication
-// In production, uses relative path (same domain)
-// In development, uses localhost:4000
-const API_BASE_URL = window.location.origin === 'http://localhost:3001' || window.location.origin === 'http://localhost:5173'
-  ? 'http://localhost:4000/api'
-  : `${window.location.origin}/api`;
+const configuredApiUrl = import.meta.env.VITE_API_URL?.trim();
+const isLocalhost = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+const API_BASE_URL = (configuredApiUrl || (isLocalhost ? 'http://localhost:4000/api' : '/api'))
+  .replace(/\/+$/, '');
 
 // Helper function to make API calls with error handling
 const apiCall = async (endpoint, options = {}) => {
@@ -23,8 +22,10 @@ const apiCall = async (endpoint, options = {}) => {
     const data = await response.json();
     console.log(`📥 Response Data:`, data);
 
-    // Always return the data, regardless of status code
-    // The component will handle success/failure based on response.success flag
+    if (!response.ok) {
+      throw new Error(data.message || `Request failed with status ${response.status}`);
+    }
+
     return data;
     
   } catch (error) {
@@ -59,6 +60,16 @@ export const portfolioAPI = {
 
   // Get server health status
   getHealth: () => apiCall('/health'),
+};
+
+export const adminAPI = {
+  getMessages: () => apiCall('/contact/admin/messages'),
+  markMessageAsRead: (id) => apiCall(`/contact/admin/messages/${id}/read`, {
+    method: 'PATCH',
+  }),
+  deleteMessage: (id) => apiCall(`/contact/admin/messages/${id}`, {
+    method: 'DELETE',
+  }),
 };
 
 export default portfolioAPI;

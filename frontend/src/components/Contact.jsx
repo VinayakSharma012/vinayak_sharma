@@ -42,7 +42,7 @@ export default function Contact() {
       }
     } catch (error) {
       console.error('❌ Contact form error:', error)
-      setMessage({ type: 'error', text: 'Failed to send message. Please check your connection and try again.' })
+      setMessage({ type: 'error', text: error.message || 'Failed to send message. Please try again.' })
     } finally {
       setLoading(false)
     }
@@ -169,6 +169,7 @@ export default function Contact() {
                 value={formData.subject}
                 onChange={handleChange}
                 placeholder="Let's work together"
+                required
                 className="w-full bg-surface-container-highest border-2 border-primary/20 focus:border-primary rounded-lg px-4 py-3 text-on-surface placeholder-outline-variant/60 focus:outline-none transition-all duration-300 font-medium hover:border-primary/40"
               />
             </div>
@@ -184,6 +185,9 @@ export default function Contact() {
                 onChange={handleChange}
                 placeholder="Your message here..."
                 rows="5"
+                minLength={10}
+                maxLength={5000}
+                required
                 className="w-full bg-surface-container-highest border-2 border-primary/20 focus:border-primary rounded-lg px-4 py-3 text-on-surface placeholder-outline-variant/60 focus:outline-none resize-none transition-all duration-300 font-medium hover:border-primary/40"
               ></motion.textarea>
             </div>
